@@ -10,7 +10,7 @@ class Backend : public QObject {
 public:
     explicit Backend(QObject *parent = nullptr);
 
-    int balance() const { return m_balance; }
+    [[nodiscard]] int balance() const { return m_balance; }
     Q_INVOKABLE void addBalance(int amount);
     Q_INVOKABLE void subtractBalance(int amount);
     Q_INVOKABLE QStringList spinSlots();

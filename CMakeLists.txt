@@ -15,6 +15,10 @@ qt_add_executable(slotMachineSim
     ${SRC_FILES}
 )
 
+set(PROJECT_RESOURCES resources.qrc)
+qt_add_resources(QML_RESOURCES_SOURCES ${PROJECT_RESOURCES})
+target_sources(slotMachineSim PRIVATE ${QML_RESOURCES_SOURCES})
+
 qt_add_qml_module(slotMachineSim
     URI slotMachineSimQML
     VERSION 1.0

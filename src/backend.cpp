@@ -20,18 +20,35 @@ void Backend::subtractBalance(int amount) {
 }
 
 QStringList Backend::spinSlots() {
-    static const QStringList symbols = { "1", "2", "3", "4", "5" };
-    QStringList result;
-    for (int ii = 0; ii < 3; ii++) {
-        int idx = QRandomGenerator::global()->bounded(symbols.size());
-        result << symbols[idx];
+    static const QMap<int, QString> symbolMap = {
+        {0, "qrc:/images/bell.png"},
+        {1, "qrc:/images/cherry.png"},
+        {2, "qrc:/images/gem.png"},
+        {3, "qrc:/images/lemon.png"},
+        {4, "qrc:/images/seven.png"}
+    };
+
+    const int spinCost = 100;
+    if (m_balance < spinCost) { // TODO: fix
+        qDebug() << "INSUFFICIENT FUNDS";
+        return {};
     }
-    if (result[0] == result[1] && result[1] == result[2]) {
+
+    subtractBalance(spinCost);
+
+    QVector<int> resultIds;
+    for (int ii = 0; ii < 3; ii++) {
+        int idx = QRandomGenerator::global()->bounded(symbolMap.size());
+        resultIds << idx;
+    }
+    if (resultIds[0] == resultIds[1] && resultIds[1] == resultIds[2]) {
         addBalance(300);
-    } else if (result[0] == result[1] || result[1] == result[2] || result[0] == result[2]) {
+    } else if (resultIds[0] == resultIds[1] || resultIds[1] == resultIds[2] || resultIds[0] == resultIds[2]) {
         addBalance(100);
-    } else {
-        subtractBalance(100);
+    }
+    QStringList result;
+    for (int id : resultIds) {
+        result << symbolMap.value(id);
     }
     return result;
 }

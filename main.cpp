@@ -1,12 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <iostream>
+#include <QFile>
+#include <QDebug>
+#include <QDirIterator>
 
 #include "src/backend.h"
 
 int main(int argc, char *argv[]) {
-
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
@@ -23,5 +24,5 @@ int main(int argc, char *argv[]) {
         Qt::QueuedConnection);
     engine.load(url);
 
-    return app.exec();
+    return QGuiApplication::exec();
 }

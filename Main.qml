@@ -2,7 +2,11 @@ import QtQuick
 import QtQuick.Controls
 
 Window {
-    property var slotResults: ["0", "0", "0"]
+    property var slotResults: [
+        "qrc:/images/dollar.png",
+        "qrc:/images/dollar.png",
+        "qrc:/images/dollar.png"
+    ]
 
     width: 800
     height: width * 0.75
@@ -12,7 +16,7 @@ Window {
 
     Rectangle {
         id: infoRect
-        width: 280
+        width: 300
         height: 80
         color: "#bc77b4"
         anchors {
@@ -22,10 +26,14 @@ Window {
             leftMargin: 20
         }
         Text {
-            id: infoText
-            anchors.centerIn: parent
             text: "Balance: $" + backend.balance
-            font.pixelSize: 32
+            font.pixelSize: 36
+            color: "white"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.centerIn: parent
+            width: parent.width
+            height: parent.height
         }
     }
 
@@ -37,15 +45,19 @@ Window {
         Repeater {
             model: 3
             Rectangle {
-                width: 120
-                height: 120
+                width: 150
+                height: 150
                 color: "#8f3030"
                 border.color: "#888"
                 radius: 16
-                Text {
-                    anchors.centerIn: parent
-                    text: slotResults[index]
-                    font.pixelSize: 64
+                Image {
+                    anchors.fill: parent
+                    anchors.margins: 16
+                    source: slotResults[index]
+                    width: parent.width
+                    height: parent.height
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
                 }
             }
         }
